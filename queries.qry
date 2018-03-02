@@ -1,0 +1,18 @@
+/** 
+* QUERIES PARA MEETUP
+*/
+
+
+query estudiantesMayoresDe {
+  description: "Selecciona todos los usuarios"
+  statement:
+      SELECT org.blocknitive.universidad.Estudiante
+        WHERE (fechaNacimiento > _$fechaNacimiento)
+}
+
+query historialAcademicoUsuario {
+  description: "Selecciona todos los usuarios filtrando la provincia"
+  statement:
+      SELECT org.blocknitive.universidad.Titulo
+          WHERE (estudiante==_$estudiante)
+}

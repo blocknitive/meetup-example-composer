@@ -1,0 +1,45 @@
+
+//DEFINIREMOS UNAS SIMPLES REGLAS DE CONTROL DE ACCESO
+
+
+rule EstudiantesVenSusHistoriales {
+  description: "Los estudiantes pueden ver solo su historial académico"
+  participant(p): "org.blocknitive.universidad.Estudiante"
+  operation: READ
+  resource(t): "org.blocknitive.universidad.Titulo"
+  condition: (p.getIdentifier() == t.estudiante.getIdentifier())
+  action: ALLOW
+}
+
+rule CentrosDeEstudiosPuedenCrearTitulos {
+  description: "Los centros de estudios pueden escribir solo en sus estudiantes"
+  participant(p): "org.blocknitive.universidad.Universidad"
+  operation: CREATE, UPDATE
+  resource(t): "org.blocknitive.universidad.Titulo"
+  condition: (p.getIdentifier() == t.universidad.getIdentifier())
+  action: ALLOW
+}
+
+rule CentrosDeEstudiosPuedenLeerHistoriales {
+  description: "Los centros de estudios pueden leer qué tienen todos los estudiantes"
+  participant: "org.blocknitive.universidad.Universidad"
+  operation: READ
+  resource: "org.blocknitive.universidad.*"
+  action: ALLOW
+}
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule System {
+    description: "Grant all full access to system resources"
+    participant: "org.**"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}

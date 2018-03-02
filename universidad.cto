@@ -1,0 +1,73 @@
+/**
+ * Definimos el modelo de datos del caso de uso en este fichero
+ */
+namespace org.blocknitive.universidad
+
+//ENUMERAMOS LOS ESTADOS POR LOS QUE PUEDE PASAR EL TÍTULO DE UN ESTUDIANTE
+
+enum Estado {
+  o ESTUDIANDO
+  o FINALIZADO
+  o ABANDONADO
+  o STANDBY
+}
+
+//CREAMOS UNA ESTRUCTURA PARTICIPANTE PARA NO DUPLICAR CAMPOS ENTRE UNIVERSIDAD Y ESTUDIANTE
+
+abstract participant Participante identified by email {
+  o String email
+  o String telefono
+  o String ciudad
+  o String codigoPostal
+  o String direccion1
+  o String direccion2 optional
+}
+
+//EXTENDEMOS DE PARTICPANTE Y CREAMOS UNIVERSIDAD
+
+participant Universidad extends Participante {
+  o String nombre
+  o String sociedad
+  o String rector
+  o String cif
+}
+
+//EXTENDEMOS DE PARTICPANTE Y CREAMOS ESTUDIANTE
+
+participant Estudiante extends Participante {
+  o String dni
+  o String nombre
+  o String apellido1
+  o String apellido2
+  o String pais
+  o DateTime fechaNacimiento
+}
+
+//DECLARAMOS EL ASSET TÍTULO
+
+asset Titulo identified by idTitulo {
+  o String idTitulo
+  o String nombre
+  o Double nCreditosTotales
+  o Double nCreditosSuperados
+  o Double notaMedia
+  o Double asistencia
+  o Estado estado
+  o String observaciones optional
+  --> Estudiante estudiante
+  --> Universidad universidad
+}
+
+//DECLARAMOS LA TRANSACCIÓN QUE DESPUÉS DEFINIREMOS
+
+transaction ActualizaTitulo {
+  o Estado estadoTitulo
+  --> Titulo titulo
+}
+
+//CREAMOS UN EVENTO PARA CUANDO ACTUALICEMOS EL TÍTULO
+
+event EventoActualizaTitulo {
+  o Estado estadoTitulo
+  o Titulo titulo
+}
