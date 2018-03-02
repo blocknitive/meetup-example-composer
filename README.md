@@ -8,8 +8,8 @@ Serían los cuatro archivos que vimos, "universidad.cto" "permissions.acl" "scri
 # Instalación
 Para cargar los archivos, podremos hacerlo de dos maneras:
 
-  - Vía https://hyperledger.github.io/composer/  -> "Try it online"
-    -> "Deploy a new business network"
+  - Vía https://hyperledger.github.io/composer/  -> "Try it online"  
+    -> "Deploy a new business network"  
     -> Solo cambiaremos el nombre del proyecto por "universidad-network"
     -> Seleccionar "empty business network"
     -> Pulsar "Deploy"
